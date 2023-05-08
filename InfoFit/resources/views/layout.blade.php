@@ -27,7 +27,7 @@
         .bgimg-1 {
             background-position: center;
             background-size: cover;
-            background-image: url("/w3images/mac.jpg");
+            background-color: #8c1629;
             min-height: 100%;
         }
 
@@ -42,14 +42,12 @@
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
     <div class="w3-bar w3-white w3-card" id="myNavbar">
-        <a href="#home" class="w3-bar-item w3-button w3-wide">LOGO</a>
+        <a href="/home" class="w3-bar-item w3-button w3-wide"><img src="/logo_small_infofit.png" width="40%"></a>
         <!-- Right-sided navbar links -->
         <div class="w3-right w3-hide-small">
-            <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
-            <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i> TEAM</a>
-            <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i> WORK</a>
-            <a href="#pricing" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> PRICING</a>
-            <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+            <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i>PROFIL</a>
+            <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i>IMC</a>
+            <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i>ALIMENTATION</a>
         </div>
         <!-- Hide right-floated links on small screens and replace them with a menu icon -->
 
@@ -62,11 +60,9 @@
 <!-- Sidebar on small screens when clicking the menu icon -->
 <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
     <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
-    <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT</a>
-    <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">TEAM</a>
-    <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">WORK</a>
-    <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">PRICING</a>
-    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
+    <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">PROFIL</a>
+    <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">IMC</a>
+    <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">ALIMENTATION</a>
 </nav>
 
 <!-- Header with full-height image -->
@@ -77,14 +73,6 @@
         <span class="w3-large">Stop wasting valuable time with projects that just isn't you.</span>
         <p><a href="#about" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Learn more and start today</a></p>
     </div>
-    <div class="w3-display-bottomleft w3-text-grey w3-large" style="padding:24px 48px">
-        <i class="fa fa-facebook-official w3-hover-opacity"></i>
-        <i class="fa fa-instagram w3-hover-opacity"></i>
-        <i class="fa fa-snapchat w3-hover-opacity"></i>
-        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-        <i class="fa fa-twitter w3-hover-opacity"></i>
-        <i class="fa fa-linkedin w3-hover-opacity"></i>
-    </div>
 </header>
 
 {{-- View output--}}
@@ -93,17 +81,15 @@
 </body>
 
 <!-- Footer -->
-<footer class="w3-center w3-black w3-padding-64">
+<footer class="w3-center w3-black w3-padding-64" style="background-color: #1b7ca6">
     <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
     <div class="w3-xlarge w3-section">
         <i class="fa fa-facebook-official w3-hover-opacity"></i>
         <i class="fa fa-instagram w3-hover-opacity"></i>
         <i class="fa fa-snapchat w3-hover-opacity"></i>
-        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
         <i class="fa fa-twitter w3-hover-opacity"></i>
         <i class="fa fa-linkedin w3-hover-opacity"></i>
     </div>
-    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
 </footer>
 
 <script>
