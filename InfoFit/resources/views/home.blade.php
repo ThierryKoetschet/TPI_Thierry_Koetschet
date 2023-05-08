@@ -6,6 +6,10 @@
  * @version 08.05.2023
  */
 ?>
+@extends('layout')
+
+@section('content')
+
 <h1>{{$heading}}</h1>
 
 @unless(count($listings) == 0)
@@ -22,3 +26,5 @@
 @else
 <p>No listing found</p>
 @endunless
+
+@endsection
