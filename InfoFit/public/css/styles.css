@@ -2931,8 +2931,8 @@ textarea.form-control-lg {
 
 .btn-danger {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #dc3545;
-  --bs-btn-border-color: #dc3545;
+  --bs-btn-bg: #8c1629;
+  --bs-btn-border-color: #8c1629;
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: #bb2d3b;
   --bs-btn-hover-border-color: #b02a37;
@@ -10947,7 +10947,8 @@ header.masthead {
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-  background-image: url("../assets/img/header-bg.jpg");
+  background-color: #212529;
+  background-image: url("../assets/img/map-image.png");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
