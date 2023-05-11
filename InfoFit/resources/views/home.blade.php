@@ -38,6 +38,6 @@
 @else
 <p>No listing found</p>
 @endunless
-
-@endsection
 --}}
+@endsection
+

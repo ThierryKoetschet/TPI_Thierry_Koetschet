@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Listing;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,12 @@ use App\Models\Listing;
 
 Route::get('/home', function () {
     return view('home', [
+
+    ]);
+});
+
+Route::get('/', function () {
+    return view('home', [
         'heading' => 'Latest Listings',
         'listings' => Listing::all()
     ]);
@@ -28,32 +35,16 @@ Route::get('/home/{id}', function ($id) {
     ]);
 });
 
-Route::get('/login', function () {
-    return view('login', [
+Route::get('/login', [UserController::class, 'login']);
 
-    ]);
-});
+Route::get('/register', [UserController::class, 'register']);
 
-Route::get('/register', function () {
-    return view('register', [
-
-    ]);
-});
-
-Route::get('/alimentation', function () {
-    return view('alimentation', [
-
-    ]);
-});
-
-Route::get('/imc', function () {
-    return view('imc', [
-
-    ]);
-});
+Route::post('/users', [UserController::class, 'store'])->name('registerUser');
 
 Route::get('/profile', function () {
     return view('profile', [
 
     ]);
 });
+
+Route::get('/logout', [UserController::class, 'logout']);

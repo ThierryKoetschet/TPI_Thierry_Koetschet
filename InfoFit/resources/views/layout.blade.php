@@ -16,7 +16,7 @@
     <meta name="author" content="" />
     <title>InfoFit</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="logo_small_infofit.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
@@ -36,9 +36,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link" href="home">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="login">Se connecter</a></li>
+                <li class="nav-item"><a class="nav-link" href="register">S'enregistrer</a></li>
                 <li class="nav-item"><a class="nav-link" href="profile">Profil</a></li>
                 <li class="nav-item"><a class="nav-link" href="imc">IMC</a></li>
                 <li class="nav-item"><a class="nav-link" href="alimentation">Alimentation</a></li>
+                <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
             </ul>
         </div>
     </div>

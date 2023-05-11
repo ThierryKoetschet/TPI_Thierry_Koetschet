@@ -16,20 +16,23 @@
                 <h2 class="section-heading text-uppercase">Login</h2>
                 <h3 class="section-subheading text-muted">Veuillez vous enregistrer pour accéder à vos données.</h3>
             </div>
-            <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+            <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="/login">
+                @csrf
                 <div class="row align-items-stretch mb-5">
                     <div class="col-md-12">
                         <div class="form-group">
                             <!-- Email address input-->
                             <input class="form-control" id="email" type="email" placeholder="Votre email *" data-sb-validations="required,email" />
-                            <div class="invalid-feedback" data-sb-feedback="email:required">Un email est nécessaire.</div>
-                            <div class="invalid-feedback" data-sb-feedback="email:email">Email invalide.</div>
+                            @error('email')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <!-- Password input-->
                             <input class="form-control" id="password" type="password" placeholder="Votre mot de passe *" data-sb-validations="required,password" />
-                            <div class="invalid-feedback" data-sb-feedback="password:required">Un mot de passe est nécessaire.</div>
-                            <div class="invalid-feedback" data-sb-feedback="password:password">Mot de passe invalide.</div>
+                            @error('password')
+                            <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
                         </div>
                     </div>
                 </div>
