@@ -37,12 +37,20 @@ Route::get('/home/{id}', function ($id) {
 
 Route::get('/login', [UserController::class, 'login']);
 
+Route::post('/authenticate', [UserController::class, 'authenticate']);
+
 Route::get('/register', [UserController::class, 'register']);
 
-Route::post('/users', [UserController::class, 'store'])->name('registerUser');
+Route::post('/users', [UserController::class, 'store']);
 
 Route::get('/profile', function () {
     return view('profile', [
+
+    ]);
+});
+
+Route::get('/imc', function () {
+    return view('imc', [
 
     ]);
 });

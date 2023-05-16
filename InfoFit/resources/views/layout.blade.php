@@ -19,13 +19,14 @@
     <link rel="icon" type="image/x-icon" href="logo_small_infofit.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
 </head>
-<body id="page-top">
+<body id="page-top" style="background-color: #212529">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
@@ -36,13 +37,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link" href="home">Accueil</a></li>
-                <li class="nav-item"><a class="nav-link" href="login">Se connecter</a></li>
-                <li class="nav-item"><a class="nav-link" href="register">S'enregistrer</a></li>
+                @auth
                 <li class="nav-item"><a class="nav-link" href="profile">Profil</a></li>
                 <li class="nav-item"><a class="nav-link" href="imc">IMC</a></li>
                 <li class="nav-item"><a class="nav-link" href="alimentation">Alimentation</a></li>
                 <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
+                <li class="nav-item">{{auth()->user()->firstname}} {{auth()->user()->lastname}}</li>
+                @else
+                <li class="nav-item"><a class="nav-link" href="home">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="login">Se connecter</a></li>
+                <li class="nav-item"><a class="nav-link" href="register">S'enregistrer</a></li>
+                @endauth
             </ul>
         </div>
     </div>

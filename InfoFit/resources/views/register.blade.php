@@ -25,10 +25,10 @@
                     <div class="col-md-12">
                         <div class="form-group">
                         <!-- Gender input-->
-                            <input id="male" type="radio" placeholder="Homme" name="gender" value="male"/>
+                            <input id="male" type="radio" placeholder="Homme" name="gender" value="Male"/>
                             <label class="form-label" style="color: white; margin-right: 20px" for="male">Homme</label>
 
-                            <input id="female" type="radio" placeholder="Femme" name="gender" value="female"/>
+                            <input id="female" type="radio" placeholder="Femme" name="gender" value="Female"/>
                             <label class="form-label" style="color: white" for="female">Femme</label>
                         </div>
                     </div>
