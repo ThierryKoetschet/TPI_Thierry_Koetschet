@@ -42,7 +42,7 @@
                 <li class="nav-item"><a class="nav-link" href="imc">IMC</a></li>
                 <li class="nav-item"><a class="nav-link" href="alimentation">Alimentation</a></li>
                 <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
-                <strong><li class="nav-item"><a class="nav-link" href="#">{{auth()->user()->firstname}} {{auth()->user()->lastname}}</a></li></strong>
+                <strong><li class="nav-item"><a class="nav-link" style="color: #8c1629" href="profile">{{auth()->user()->firstname}} {{auth()->user()->lastname}}</a></li></strong>
                 @else
                 <li class="nav-item"><a class="nav-link" href="home">Accueil</a></li>
                 <li class="nav-item"><a class="nav-link" href="login">Se connecter</a></li>

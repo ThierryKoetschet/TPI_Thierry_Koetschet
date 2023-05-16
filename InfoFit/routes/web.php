@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Listing;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,20 +37,10 @@ Route::get('/register', [UserController::class, 'register']);
 
 Route::post('/users', [UserController::class, 'store']);
 
-Route::get('/profile', function () {
-    return view('profile', [
-
-    ]);
-});
-
-Route::get('/imc', function () {
-    return view('imc', [
-
-    ]);
-});
-
 Route::get('/logout', [UserController::class, 'logout']);
 
 Route::post('/updateWeight', [UserController::class, 'updateWeight']);
 
 Route::get('/profile',[UserController::class, 'getLastWeight']);
+
+Route::get('/imc', [ChartController::class, 'lineChart']);

@@ -13,35 +13,35 @@
     <section class="page-section" id="imc">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase text-white">IMC</h2>
-                <h3 class="section-subheading text-muted">Veuillez vous enregistrer pour accéder à vos données.</h3>
+                <h2 class="section-heading text-uppercase text-white">IMC</h2><br>
+                <p class="text-white text-uppercase">Votre indice de masse corporel est de </p>
+                <a class="btn btn-danger btn-xl text-uppercase" disabled>{{$data[0]}}</a><br><br><br><br>
+                <h2 class="section-heading text-uppercase text-white">Historique</h2>
             </div>
-            <canvas id="weight-chart" style="width:100%;max-width:600px"></canvas>
         </div>
-        <script>
-            const xValues = [50,60,70,80,90,100,110,120,130,140,150];
-            const yValues = [7,8,8,9,9,9,10,11,14,14,15];
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
 
-            new Chart("weight-chart", {
-                type: "line",
-                data: {
-                    labels: xValues,
-                    datasets: [{
-                        fill: false,
-                        lineTension: 0,
-                        backgroundColor: "rgba(0,0,255,1.0)",
-                        borderColor: "rgba(0,0,255,0.1)",
-                        data: yValues
-                    }]
-                },
-                options: {
-                    legend: {display: false},
-                    scales: {
-                        yAxes: [{ticks: {min: 6, max:16}}],
-                    }
-                }
-            });
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Date', 'Weight', 'IMC'],
+                    <?php echo compact($data); ?>
+                ]);
+
+                var options = {
+                    title: 'Company Performance',
+                    curveType: 'function',
+                    legend: { position: 'bottom' }
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+                chart.draw(data, options);
+            }
         </script>
+        <div id="curve_chart" style="width: 900px; height: 500px; margin-right: auto; margin-left: auto"></div>
     </section>
 
 @endsection
