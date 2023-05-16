@@ -42,7 +42,7 @@
                 <li class="nav-item"><a class="nav-link" href="imc">IMC</a></li>
                 <li class="nav-item"><a class="nav-link" href="alimentation">Alimentation</a></li>
                 <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
-                <li class="nav-item">{{auth()->user()->firstname}} {{auth()->user()->lastname}}</li>
+                <strong><li class="nav-item"><a class="nav-link" href="#">{{auth()->user()->firstname}} {{auth()->user()->lastname}}</a></li></strong>
                 @else
                 <li class="nav-item"><a class="nav-link" href="home">Accueil</a></li>
                 <li class="nav-item"><a class="nav-link" href="login">Se connecter</a></li>
@@ -60,16 +60,13 @@
 <footer class="footer py-4" style="background-color: #1b7ca6">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2023</div>
+            <div class="col-lg-4 text-lg-start">Projet de TPI 2023</div>
             <div class="col-lg-4 my-3 my-lg-0">
                 <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                 <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
             </div>
-            <div class="col-lg-4 text-lg-end">
-                <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
-            </div>
+            <div class="col-lg-4 text-lg-end">Thierry Koetschet | Chemin du Perrey 22 | thierry.koetschet.1998@gmail.com</div>
         </div>
     </div>
 </footer>

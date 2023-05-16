@@ -24,14 +24,7 @@ Route::get('/home', function () {
 
 Route::get('/', function () {
     return view('home', [
-        'heading' => 'Latest Listings',
-        'listings' => Listing::all()
-    ]);
-});
 
-Route::get('/home/{id}', function ($id) {
-    return view('listing', [
-        'listing' => Listing::find($id)
     ]);
 });
 
@@ -56,3 +49,7 @@ Route::get('/imc', function () {
 });
 
 Route::get('/logout', [UserController::class, 'logout']);
+
+Route::post('/updateWeight', [UserController::class, 'updateWeight']);
+
+Route::get('/profile',[UserController::class, 'getLastWeight']);

@@ -6,7 +6,8 @@ use App\Models\User;
 use App\Models\Weight;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -42,15 +43,15 @@ class UserController extends Controller
         $user->height = $formFields['height'];
 
         $user->save();
-        auth()->login($user);
+        Auth::login($user);
 
         $weight->value = $formFields['weight'];
         $weight->date = date("Y-m-d");
-        $weight->users_id = User::where('email', '=', $request->email)->id;
+        $weight->users_id = Auth::id();
 
-        dd($weight);
+        $weight->save();
 
-        return redirect('/')->with('success', 'Enregistrement réussi!');
+        return redirect('/profile')->with('success', 'Enregistrement réussi!');
     }
 
     public function logout(Request $request) {
@@ -74,12 +75,34 @@ class UserController extends Controller
 
         $user = User::where('email', '=', $request->email)->first();
         if($user) {
-            if (auth()->attempt($formFields)) {
+            if (Auth::attempt($formFields)) {
                 $request->session()->regenerate();
 
-                return redirect('/imc')->with('message', 'Vous êtes maintenant connecté !');
+                return redirect('/profile')->with('message', 'Vous êtes maintenant connecté !');
             }
         }
         return back()->withErrors(['email' => 'Les identifiants sont invalides'])->onlyInput('email');
+    }
+
+    public function updateWeight(Request $request) {
+        $request->validate([
+            'weight' => 'required|integer|gt:0'
+        ]);
+
+        $weight = new Weight();
+
+        $weight->value = $request['weight'];
+        $weight->date = date("Y-m-d");
+        $weight->users_id = Auth::id();
+
+        $weight->save();
+
+        return redirect('/imc')->with('success', 'Enregistrement réussi!');
+    }
+
+    public function getLastWeight() {
+        $users_id = Auth::id();
+        $lastWeight = Weight::where('users_id', '=', $users_id)->orderby('updated_at', 'desc')->first();
+        return view('profile',['lastWeight'=>$lastWeight]);
     }
 }
