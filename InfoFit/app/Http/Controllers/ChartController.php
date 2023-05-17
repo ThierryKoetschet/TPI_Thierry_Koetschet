@@ -13,7 +13,7 @@ class ChartController extends Controller
         $users_id = Auth::id();
         $weights = Weight::where('users_id', '=', $users_id)->orderby('updated_at', 'asc')->get();
         $users_height = Auth::user()->height;
-        $data = [['Date', 'Weight', 'IMC']];
+        $data = [['Date', 'Poids', 'IMC']];
 
         foreach ($weights as $weight) {
             array_push($data,[$weight->date,$weight['value'], $this->calculateImc($weight['value'], $users_height)]);

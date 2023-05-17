@@ -33,7 +33,7 @@
                 );
 
                 let options = {
-                    title: 'Company Performance',
+                    title: 'Evolution de votre poids',
                     curveType: 'function',
                     legend: { position: 'bottom' }
                 };
