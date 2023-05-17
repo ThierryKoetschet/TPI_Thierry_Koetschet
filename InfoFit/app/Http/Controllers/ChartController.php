@@ -11,13 +11,14 @@ class ChartController extends Controller
 {
     public function lineChart() {
         $users_id = Auth::id();
-        $weights = Weight::where('users_id', '=', $users_id)->orderby('updated_at', 'desc')->get();
+        $weights = Weight::where('users_id', '=', $users_id)->orderby('updated_at', 'asc')->get();
         $users_height = Auth::user()->height;
-        $data = "";
+        $data = [['Date', 'Weight', 'IMC']];
 
         foreach ($weights as $weight) {
-            $data.="['".$weight->date."',  '".$weight['value']."', '".$this->calculateImc($weight['value'], $users_height)."'],";
+            array_push($data,[$weight->date,$weight['value'], $this->calculateImc($weight['value'], $users_height)]);
         }
+
 
         return view('/imc',['data'=>$data]);
     }

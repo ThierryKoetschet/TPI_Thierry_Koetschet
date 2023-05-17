@@ -15,7 +15,7 @@
             <div class="text-center">
                 <h2 class="section-heading text-uppercase text-white">IMC</h2><br>
                 <p class="text-white text-uppercase">Votre indice de masse corporel est de </p>
-                <a class="btn btn-danger btn-xl text-uppercase" disabled>{{$data[0]}}</a><br><br><br><br>
+                <a class="btn btn-danger btn-xl text-uppercase" disabled>{{end($data)[2]}}</a><br><br><br><br>
                 <h2 class="section-heading text-uppercase text-white">Historique</h2>
             </div>
         </div>
@@ -24,19 +24,21 @@
             google.charts.load('current', {'packages':['corechart']});
             google.charts.setOnLoadCallback(drawChart);
 
-            function drawChart() {
-                var data = google.visualization.arrayToDataTable([
-                    ['Date', 'Weight', 'IMC'],
-                    <?php echo compact($data); ?>
-                ]);
 
-                var options = {
+            function drawChart() {
+                let data = google.visualization.arrayToDataTable(
+
+                    <?php
+                    echo json_encode($data); ?>
+                );
+
+                let options = {
                     title: 'Company Performance',
                     curveType: 'function',
                     legend: { position: 'bottom' }
                 };
 
-                var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+                let chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
                 chart.draw(data, options);
             }
