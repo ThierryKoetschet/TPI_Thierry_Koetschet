@@ -10,11 +10,11 @@
 
 @section('content')
 
-    <section class="page-section" id="imc">
+    <section class="page-section" id="contact">
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase text-white">IMC</h2><br>
-                <p class="text-white text-uppercase">Votre indice de masse corporel est de </p>
+                <h3 class="section-subheading text-white">Votre indice de masse corporelle est de</h3>
                 <a class="btn btn-danger btn-xl text-uppercase" disabled>{{end($data)[2]}}</a><br><br><br><br>
                 <h2 class="section-heading text-uppercase text-white">Historique</h2>
             </div>
@@ -33,7 +33,7 @@
                 );
 
                 let options = {
-                    title: 'Evolution de votre poids',
+                    //title: 'Evolution de votre poids',
                     curveType: 'function',
                     legend: { position: 'bottom' }
                 };

@@ -13,7 +13,7 @@
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Profil</h2>
-                <h3 class="section-subheading text-muted">Modifier votre poids pour visualiser votre évolution !</h3>
+                <h3 class="section-subheading text-white">Modifier votre poids pour visualiser votre évolution !</h3>
             </div>
             <form id="contactForm" method="post" action="{{'/updateWeight'}}">
                 @csrf
@@ -32,13 +32,25 @@
                             <input class="form-control" name="birthdate" type="date" value="{{auth()->user()->birthdate}}" readonly/>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <!-- Height input-->
+                            <label class="form-label text-white text-uppercase" id="height" style="padding-left: 50%; padding-top: 20px">Taille</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="form-group">
                             <!-- Height input-->
                             <input class="form-control" name="height" type="number" value="{{auth()->user()->height}}" readonly/>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <!-- Height input-->
+                            <label class="form-label text-white text-uppercase" id="weight" style="padding-left: 50%; padding-top: 20px">Poids</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="form-group">
                             <!-- Weight input-->
                             <input class="form-control" name="weight" type="number" value="{{$lastWeight->value}}"/>

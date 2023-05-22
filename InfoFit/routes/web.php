@@ -2,9 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Listing;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\FoodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +44,11 @@ Route::post('/updateWeight', [UserController::class, 'updateWeight']);
 Route::get('/profile',[UserController::class, 'getLastWeight']);
 
 Route::get('/imc', [ChartController::class, 'lineChart']);
+
+Route::get('/alimentation', [FoodController::class, 'showAlimentation']);
+
+Route::post('/addFoodstuff', [FoodController::class, 'addFoodstuff']);
+
+Route::get('/add', [FoodController::class, 'showAdd']);
+
+Route::post('/searchFoodstuff', [FoodController::class, 'searchFoodstuff']);
