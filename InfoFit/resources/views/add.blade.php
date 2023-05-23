@@ -17,7 +17,7 @@
             </div>
             <form id="contactForm" method="post" action="{{'/searchFoodstuff'}}">
                 @csrf
-                <div class="row align-items-stretch mb-5">
+                <div class="row align-items-stretch mb-5 mt-5">
                     <div class="col-md-6">
                         <div class="form-group">
                             <!-- Weight input-->
@@ -41,6 +41,7 @@
                             <th>Glucides</th>
                             <th>Lipides</th>
                             <th>Protéines</th>
+                            <th>Quantité</th>
                         </tr>
 
                     @foreach($productSelection as $product)
@@ -50,19 +51,23 @@
                             <td>{{$product['carbohydrates_100g']}}</td>
                             <td>{{$product['lipids_100g']}}</td>
                             <td>{{$product['proteins_100g']}}</td>
-                            <td>
-                                <form method="post" action="{{'/searchFoodstuff'}}">
+                            <form method="post" action="{{'/addFoodstuff'}}">
+                                @csrf
+                                <td>
+                                    <input class="form-control w-50" name="quantity" type="number" step="0.01" value="1" />
+                                    <span class="text-danger">@error('quantity') {{$message}} @enderror</span>
+                                </td>
+                                <td>
                                     <input type="text" name="code" value="{{$product['code']}}" readonly hidden>
                                     <input type="text" name="title" value="{{$product['title']}}" readonly hidden>
                                     <input type="number" name="kcal_100g" value="{{$product['kcal_100g']}}" readonly hidden>
                                     <input type="number" name="carbohydrates_100g" value="{{$product['carbohydrates_100g']}}" readonly hidden>
                                     <input type="number" name="lipids_100g" value="{{$product['lipids_100g']}}" readonly hidden>
                                     <input type="number" name="proteins_100g" value="{{$product['proteins_100g']}}" readonly hidden>
-                                    <div class="text-center">
-                                        <button class="btn btn-danger btn-xl text-uppercase" name="submitButton" type="submit">Ajouter</button>
-                                    </div>
-                                </form>
-                            </td>
+                                    <input type="date" name="date" value="{{$date}}" readonly hidden>
+                                    <button class="btn btn-danger btn-social mx-2" name="submitButton" type="submit"><i class="fa-solid fa-plus"></i></button>
+                                </td>
+                            </form>
                         </tr>
                     @endforeach
                     </table>

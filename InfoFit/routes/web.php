@@ -47,9 +47,13 @@ Route::get('/imc', [ChartController::class, 'lineChart']);
 
 Route::get('/alimentation', [FoodController::class, 'showAlimentation']);
 
+Route::get('/alimentation/{date}', function ($date) {
+    return view('/alimentation', ['date' => $date]);
+});
+
 Route::post('/addFoodstuff', [FoodController::class, 'addFoodstuff']);
 
-Route::get('/add', [FoodController::class, 'showAdd']);
+Route::post('/showAdd', [FoodController::class, 'showAdd']);
 
 Route::post('/searchFoodstuff', [FoodController::class, 'searchFoodstuff']);
 
