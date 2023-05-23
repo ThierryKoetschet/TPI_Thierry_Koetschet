@@ -33,8 +33,6 @@
                     </div>
                 </div>
             </form>
-            <form id="contactForm" method="post" action="{{'/searchFoodstuff'}}">
-                @csrf
                 @if($productSelection)
                     <table class="text-white text-uppercase" width="100%">
                         <tr>
@@ -46,25 +44,29 @@
                         </tr>
 
                     @foreach($productSelection as $product)
-                        <?php dd($productSelection); ?>
                         <tr>
-                            <td>{{$product['product_name']}}</td>
-                            <td>{{$product['nutriments']['energy-kcal_100g']}}</td>
-                            <td>{{$product['nutriments']['carbohydrates_100g']}}</td>
-                            <td>{{$product['nutriments']['fat_100g']}}</td>
-                            <td>{{$product['nutriments']['proteins_100g']}}</td>
+                            <td>{{$product['title']}}</td>
+                            <td>{{$product['kcal_100g']}}</td>
+                            <td>{{$product['carbohydrates_100g']}}</td>
+                            <td>{{$product['lipids_100g']}}</td>
+                            <td>{{$product['proteins_100g']}}</td>
+                            <td>
+                                <form method="post" action="{{'/searchFoodstuff'}}">
+                                    <input type="text" name="code" value="{{$product['code']}}" readonly hidden>
+                                    <input type="text" name="title" value="{{$product['title']}}" readonly hidden>
+                                    <input type="number" name="kcal_100g" value="{{$product['kcal_100g']}}" readonly hidden>
+                                    <input type="number" name="carbohydrates_100g" value="{{$product['carbohydrates_100g']}}" readonly hidden>
+                                    <input type="number" name="lipids_100g" value="{{$product['lipids_100g']}}" readonly hidden>
+                                    <input type="number" name="proteins_100g" value="{{$product['proteins_100g']}}" readonly hidden>
+                                    <div class="text-center">
+                                        <button class="btn btn-danger btn-xl text-uppercase" name="submitButton" type="submit">Ajouter</button>
+                                    </div>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                     </table>
                 @endif
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <!-- Height input-->
-                            <div class="text-center"><button class="btn btn-danger btn-xl text-uppercase" name="submitButton" type="submit">Chercher</button></div>
-                        </div>
-                    </div>
-                </div>
-            </form>
         </div>
     </section>
 @endsection

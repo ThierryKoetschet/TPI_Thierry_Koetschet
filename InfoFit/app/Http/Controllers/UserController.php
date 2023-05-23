@@ -105,4 +105,16 @@ class UserController extends Controller
         $lastWeight = Weight::where('users_id', '=', $users_id)->orderby('updated_at', 'desc')->first();
         return view('profile',['lastWeight'=>$lastWeight]);
     }
+
+    public function deleteUser(Request $request) {
+        $users_id = Auth::id();
+        User::where('id', '=', $users_id)->delete();
+
+        auth()->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('message', 'Vous avez supprimé votre compte');
+    }
 }

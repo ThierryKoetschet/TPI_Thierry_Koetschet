@@ -61,6 +61,9 @@
                 <!-- Submit Button-->
                 <div class="text-center"><button class="btn btn-danger btn-xl text-uppercase" name="submitButton" type="submit">Modifier</button></div>
             </form>
+            <form id="contactForm" method="get" action="{{'/deleteUser'}}">
+                <div class="text-center"><button class="btn btn-danger btn-xl text-uppercase mt-5" name="deleteButton" type="submit">Supprimer le compte</button></div>
+            </form>
         </div>
     </section>
 @endsection
