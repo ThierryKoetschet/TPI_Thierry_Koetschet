@@ -38,7 +38,6 @@ class FoodController extends Controller
         $productSelection = [];
         $date = $request['date'];
 
-
         return view('/add', ['productSelection'=>$productSelection], ['date' => $date]);
     }
 
@@ -85,7 +84,7 @@ class FoodController extends Controller
 
         if ($api) {
             $json = json_decode($api, true)['products'];
-            $products = array_slice($json, 0, 5);
+            $products = array_slice($json, 0, 10);
             $productCode = [];
             $productSelection = [];
 
@@ -105,10 +104,50 @@ class FoodController extends Controller
 
                 $foodstuff->code = $json['code'];
                 $foodstuff->title = $json['product_name_fr'];
-                $foodstuff->kcal_100g = $json['nutriments']['energy-kcal_100g'];
-                $foodstuff->carbohydrates_100g = $json['nutriments']['carbohydrates_100g'];
-                $foodstuff->lipids_100g = $json['nutriments']['fat_100g'];
-                $foodstuff->proteins_100g = $json['nutriments']['proteins_100g'];
+                if (isset($json['nutriments']['energy-kcal_100g'])) {
+                    $foodstuff->kcal_100g = $json['nutriments']['energy-kcal_100g'];
+                }
+                else {
+                    if (isset($json['nutriments']['energy'])) {
+                        $foodstuff->kcal_100g = $json['nutriments']['energy'];
+                    }
+                    else {
+                        $foodstuff->kcal_100g = 0;
+                    }
+                }
+                if (isset($json['nutriments']['carbohydrates_100g'])) {
+                    $foodstuff->carbohydrates_100g = $json['nutriments']['carbohydrates_100g'];
+                }
+                else {
+                    if (isset($json['nutriments']['carbohydrates'])) {
+                        $foodstuff->carbohydrates_100g = $json['nutriments']['carbohydrates'];
+                    }
+                    else {
+                        $foodstuff->carbohydrates_100g = 0;
+                    }
+                }
+                if (isset($json['nutriments']['fat_100g'])) {
+                    $foodstuff->lipids_100g = $json['nutriments']['fat_100g'];
+                }
+                else {
+                    if (isset($json['nutriments']['fat'])) {
+                        $foodstuff->lipids_100g = $json['nutriments']['fat'];
+                    }
+                    else {
+                        $foodstuff->lipids_100g = 0;
+                    }
+                }
+                if (isset($json['nutriments']['proteins_100g'])) {
+                    $foodstuff->proteins_100g = $json['nutriments']['proteins_100g'];
+                }
+                else {
+                    if (isset($json['nutriments']['proteins'])) {
+                        $foodstuff->proteins_100g = $json['nutriments']['proteins'];
+                    }
+                    else {
+                        $foodstuff->proteins_100g = 0;
+                    }
+                }
 
                 array_push($productSelection, $foodstuff);
             }

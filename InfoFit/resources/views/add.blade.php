@@ -14,6 +14,7 @@
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Ajouter un aliment</h2>
+                <h3 class="section-subheading text-white">Saisissez le nom de l'aliment consommé !</h3>
             </div>
             <form id="contactForm" method="post" action="{{'/searchFoodstuff'}}">
                 @csrf
@@ -36,7 +37,7 @@
                 @if($productSelection)
                     <table class="text-white text-uppercase" width="100%">
                         <tr>
-                            <th>Nom</th>
+                            <th width="40%">Nom</th>
                             <th>Calories</th>
                             <th>Glucides</th>
                             <th>Lipides</th>
@@ -64,7 +65,7 @@
                                     <input type="number" name="carbohydrates_100g" value="{{$product['carbohydrates_100g']}}" readonly hidden>
                                     <input type="number" name="lipids_100g" value="{{$product['lipids_100g']}}" readonly hidden>
                                     <input type="number" name="proteins_100g" value="{{$product['proteins_100g']}}" readonly hidden>
-                                    <input type="date" name="date" value="{{$date}}" readonly hidden>
+                                    <input type="date" name="date" value="{{date("Y-m-d")}}" readonly hidden>
                                     <button class="btn btn-danger btn-social mx-2" name="submitButton" type="submit"><i class="fa-solid fa-plus"></i></button>
                                 </td>
                             </form>

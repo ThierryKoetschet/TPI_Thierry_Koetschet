@@ -44,7 +44,7 @@ if (!isset($date)){
                         <th style="text-align: center">[g]</th>
                     </tr>
                     <tr>
-                        <th>Petit déjeuner</th>
+                        <th style="padding-bottom: 25px; padding-top: 25px">Petit déjeuner</th>
                     </tr>
                     @foreach($foodstuffList as $foodstuff)
                         <tr>
@@ -59,7 +59,7 @@ if (!isset($date)){
                         <td><button class="btn btn-danger mx-2" name="submitButton" type="submit">Ajouter un aliment</button></td>
                     </tr>
                     <tr>
-                        <th>Dîner</th>
+                        <th style="padding-bottom: 25px; padding-top: 25px">Dîner</th>
                     </tr>
                     @foreach($foodstuffList as $foodstuff)
                         <tr>
@@ -71,10 +71,10 @@ if (!isset($date)){
                         </tr>
                     @endforeach
                     <tr>
-                        <td><a href="/add">Ajouter un aliment</a></td>
+                        <td><button class="btn btn-danger mx-2" name="submitButton" type="submit">Ajouter un aliment</button></td>
                     </tr>
                     <tr>
-                        <th>Souper</th>
+                        <th style="padding-bottom: 25px; padding-top: 25px">Souper</th>
                     </tr>
                     @foreach($foodstuffList as $foodstuff)
                         <tr>
@@ -86,7 +86,7 @@ if (!isset($date)){
                         </tr>
                     @endforeach
                     <tr>
-                        <td><a href="/add">Ajouter un aliment</a></td>
+                        <td><button class="btn btn-danger mx-2" name="submitButton" type="submit">Ajouter un aliment</button></td>
                     </tr>
                     <tr></tr>
                     <tr>
@@ -102,7 +102,7 @@ if (!isset($date)){
                             $proteinsSum += $foodstuff['proteins'];
                         }
                         ?>
-                        <th>Total</th>
+                        <th style="padding-bottom: 25px; padding-top: 25px">Total</th>
                         <th class="text-center">{{$caloriesSum}}</th>
                         <th class="text-center">{{$carbSum}}</th>
                         <th class="text-center">{{$lipidsSum}}</th>
