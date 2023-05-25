@@ -15,7 +15,7 @@
                 <h2 class="section-heading text-uppercase">Profil</h2>
                 <h3 class="section-subheading text-white">Modifier votre poids pour visualiser votre évolution !</h3>
             </div>
-            <form id="contactForm" method="post" action="{{'/updateWeight'}}">
+            <form id="contactForm" method="post" action="{{'/updateUser'}}">
                 @csrf
                 <div class="row align-items-stretch mb-5">
                     <div class="col-md-12">
@@ -47,7 +47,7 @@
                         </div>
                         <div class="form-group">
                             <!-- Firstname input-->
-                            <input class="form-control" name="firstname" type="text" value="{{auth()->user()->email}}" />
+                            <input class="form-control" name="email" type="text" value="{{auth()->user()->email}}" />
                         </div>
                         <div class="form-group">
                             <!-- Birthdate input-->

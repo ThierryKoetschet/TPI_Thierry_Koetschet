@@ -53,6 +53,9 @@
                             <td class="text-center">{{$foodstuff['carbohydrates']}}</td>
                             <td class="text-center">{{$foodstuff['lipids']}}</td>
                             <td class="text-center">{{$foodstuff['proteins']}}</td>
+                            <td>
+                                <a href="/deleteFoodstuff/{{$foodstuff['id']}}/{{$date}}"><i class="fa-solid fa-minus btn btn-danger"></i></a>
+                            </td>
                         </tr>
                         @endif
                     @endforeach
@@ -70,6 +73,9 @@
                             <td class="text-center">{{$foodstuff['carbohydrates']}}</td>
                             <td class="text-center">{{$foodstuff['lipids']}}</td>
                             <td class="text-center">{{$foodstuff['proteins']}}</td>
+                            <td>
+                                <a href="/deleteFoodstuff/{{$foodstuff['id']}}/{{$date}}"><i class="fa-solid fa-minus btn btn-danger"></i></a>
+                            </td>
                         </tr>
                         @endif
                     @endforeach
@@ -87,6 +93,9 @@
                             <td class="text-center">{{$foodstuff['carbohydrates']}}</td>
                             <td class="text-center">{{$foodstuff['lipids']}}</td>
                             <td class="text-center">{{$foodstuff['proteins']}}</td>
+                            <td>
+                                <a href="/deleteFoodstuff/{{$foodstuff['id']}}/{{$date}}"><i class="fa-solid fa-minus btn btn-danger"></i></a>
+                            </td>
                         </tr>
                         @endif
                     @endforeach

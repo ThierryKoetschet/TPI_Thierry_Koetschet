@@ -21,6 +21,7 @@ class FoodController extends Controller
 
         foreach ($list as $item) {
             $foodstuffs = [
+                'id' => $item['id'],
                 'title' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('title'),
                 'quantity' => $item['quantity'] * 100,
                 'calories' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('kcal_100g'),
@@ -42,6 +43,7 @@ class FoodController extends Controller
 
         foreach ($list as $item) {
             $foodstuffs = [
+                'id' => $item['id'],
                 'title' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('title'),
                 'quantity' => $item['quantity'] * 100,
                 'calories' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('kcal_100g'),
@@ -192,5 +194,30 @@ class FoodController extends Controller
         }
 
         return view('/add',['productSelection'=>$productSelection, 'infos'=>$infos]);
+    }
+
+    public function deleteFoodstuff($id, $date) {
+        Users_has_foodstuff::where('id', '=', $id)->delete();
+
+        $foodstuffList = [];
+        $list = Users_has_foodstuff::where('users_id', '=', Auth::id())->where('date', '=', $date)->get();
+
+        foreach ($list as $item) {
+            $foodstuffs = [
+                'id' => $item['id'],
+                'title' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('title'),
+                'quantity' => $item['quantity'] * 100,
+                'calories' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('kcal_100g'),
+                'carbohydrates' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('carbohydrates_100g'),
+                'lipids' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('lipids_100g'),
+                'proteins' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('proteins_100g'),
+                'date' => $item['date'],
+                'period' => $item['period']
+            ];
+
+            array_push($foodstuffList, $foodstuffs);
+        }
+
+        return view('alimentation', ['foodstuffList' => $foodstuffList,'date'=>$date,'back'=>'../']);
     }
 }

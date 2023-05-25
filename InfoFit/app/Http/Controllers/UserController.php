@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    public function register() {
+    public function register()
+    {
         return view('register');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $formFields = $request->validate([
             'gender' => 'required',
             'lastname' => 'required|min:2',
@@ -54,7 +56,8 @@ class UserController extends Controller
         return redirect('/profile')->with('success', 'Enregistrement réussi!');
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         auth()->logout();
 
         $request->session()->invalidate();
@@ -63,18 +66,20 @@ class UserController extends Controller
         return redirect('/')->with('message', 'Vous vous êtes déconnecté');
     }
 
-    public function login() {
+    public function login()
+    {
         return view('login');
     }
 
-    public function authenticate(Request $request) {
+    public function authenticate(Request $request)
+    {
         $formFields = $request->validate([
             'email' => 'required',
             'password' => 'required'
         ]);
 
         $user = User::where('email', '=', $request->email)->first();
-        if($user) {
+        if ($user) {
             if (Auth::attempt($formFields)) {
                 $request->session()->regenerate();
 
@@ -84,35 +89,79 @@ class UserController extends Controller
         return back()->withErrors(['email' => 'Les identifiants sont invalides'])->onlyInput('email');
     }
 
-    public function updateUser(Request $request) {
-        $request->validate([
-            'gender' => 'required',
-            'lastname' => 'required|min:2',
-            'firstname' => 'required|min:2',
-            'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'birthdate' => 'required',
-            'height' => 'required|integer|gt:0',
-            'weight' => 'required|integer|gt:0'
-        ]);
+    public function updateUser(Request $request)
+    {
+        $oldEmail = Auth::user()->email;
 
+        if (User::where('email', '=', $oldEmail)->get()->count() == 0) {
+            $formFields = $request->validate([
+                'gender' => 'required',
+                'lastname' => 'required|min:2',
+                'firstname' => 'required|min:2',
+                'email' => ['required', 'email', Rule::unique('users', 'email')],
+                'birthdate' => 'required',
+                'height' => 'required|integer|gt:0',
+                'weight' => 'required|integer|gt:0'
+            ]);
+        }
+        else {
+            $formFields = $request->validate([
+                'gender' => 'required',
+                'lastname' => 'required|min:2',
+                'firstname' => 'required|min:2',
+                'email' => ['required', 'email'],
+                'birthdate' => 'required',
+                'height' => 'required|integer|gt:0',
+                'weight' => 'required|integer|gt:0'
+            ]);
+        }
+
+
+        $user = User::where('email', '=', $oldEmail)->get();
+
+        $user->gender = $formFields['gender'];
+        $user->lastname = $formFields['lastname'];
+        $user->firstname = $formFields['firstname'];
+        $user->email = $formFields['email'];
+        $user->birthdate = $formFields['birthdate'];
+        $user->height = $formFields['height'];
+
+        User::where('email', '=', $oldEmail)->update(
+            [
+                'gender' => $user->gender,
+                'lastname' => $user->lastname,
+                'firstname' => $user->firstname,
+                'email' => $user->email,
+                'birthdate' => $user->birthdate,
+                'height' => $user->height
+            ]
+        );
+
+        $oldWeight = Weight::where('users_id', '=', Auth::id())->orderby('id', 'desc')->first();
+
+        if ($formFields['weight'] == $oldWeight['value'] && $oldWeight['date'] == date("Y-m-d")) {
+            return back();
+        }
         $weight = new Weight();
 
-        $weight->value = $request['weight'];
+        $weight->value = $formFields['weight'];
         $weight->date = date("Y-m-d");
         $weight->users_id = Auth::id();
 
         $weight->save();
 
-        return redirect('/imc')->with('success', 'Enregistrement réussi!');
+        return back()->with('message', 'Modification réussie !');
     }
 
-    public function getLastWeight() {
+    public function getLastWeight()
+    {
         $users_id = Auth::id();
         $lastWeight = Weight::where('users_id', '=', $users_id)->orderby('updated_at', 'desc')->first();
-        return view('profile',['lastWeight'=>$lastWeight]);
+        return view('profile', ['lastWeight' => $lastWeight]);
     }
 
-    public function deleteUser(Request $request) {
+    public function deleteUser(Request $request)
+    {
         $users_id = Auth::id();
         User::where('id', '=', $users_id)->delete();
 

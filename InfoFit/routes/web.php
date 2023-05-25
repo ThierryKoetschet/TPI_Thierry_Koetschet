@@ -56,3 +56,5 @@ Route::post('/showAdd', [FoodController::class, 'showAdd']);
 Route::post('/searchFoodstuff', [FoodController::class, 'searchFoodstuff']);
 
 Route::get('/deleteUser', [UserController::class, 'deleteUser']);
+
+Route::get('deleteFoodstuff/{id}/{date}', [FoodController::class, 'deleteFoodstuff']);
