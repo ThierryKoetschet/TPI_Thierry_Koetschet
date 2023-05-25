@@ -84,8 +84,14 @@ class UserController extends Controller
         return back()->withErrors(['email' => 'Les identifiants sont invalides'])->onlyInput('email');
     }
 
-    public function updateWeight(Request $request) {
+    public function updateUser(Request $request) {
         $request->validate([
+            'gender' => 'required',
+            'lastname' => 'required|min:2',
+            'firstname' => 'required|min:2',
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'birthdate' => 'required',
+            'height' => 'required|integer|gt:0',
             'weight' => 'required|integer|gt:0'
         ]);
 

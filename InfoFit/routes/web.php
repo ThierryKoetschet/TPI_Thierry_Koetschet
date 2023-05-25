@@ -39,13 +39,15 @@ Route::post('/users', [UserController::class, 'store']);
 
 Route::get('/logout', [UserController::class, 'logout']);
 
-Route::post('/updateWeight', [UserController::class, 'updateWeight']);
+Route::post('/updateUser', [UserController::class, 'updateUser']);
 
 Route::get('/profile',[UserController::class, 'getLastWeight']);
 
 Route::get('/imc', [ChartController::class, 'lineChart']);
 
 Route::get('/alimentation', [FoodController::class, 'showAlimentation']);
+
+Route::get('/alimentation/{id}', [FoodController::class, 'showAlimentationSpecific']);
 
 Route::post('/addFoodstuff', [FoodController::class, 'addFoodstuff']);
 

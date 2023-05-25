@@ -6,7 +6,6 @@
  * @version 22.05.2023
  */
 ?>
-
 @extends('layout')
 
 @section('content')
@@ -27,6 +26,8 @@
                         </div>
                     </div>
                     <div class="col-md-6">
+                        <input type="date" name="date" value="{{$infos['date']}}" readonly hidden>
+                        <input name="period" type="text" value="{{$infos['period']}}" readonly hidden/>
                         <div class="form-group">
                             <!-- Height input-->
                             <div class="text-center"><button class="btn btn-danger btn-xl text-uppercase" name="submitButton" type="submit">Chercher</button></div>
@@ -65,8 +66,9 @@
                                     <input type="number" name="carbohydrates_100g" value="{{$product['carbohydrates_100g']}}" readonly hidden>
                                     <input type="number" name="lipids_100g" value="{{$product['lipids_100g']}}" readonly hidden>
                                     <input type="number" name="proteins_100g" value="{{$product['proteins_100g']}}" readonly hidden>
-                                    <input type="date" name="date" value="{{date("Y-m-d")}}" readonly hidden>
-                                    <button class="btn btn-danger btn-social mx-2" name="submitButton" type="submit"><i class="fa-solid fa-plus"></i></button>
+                                    <input type="date" name="date" value="{{$infos['date']}}" readonly hidden>
+                                    <input name="period" type="text" value="{{$infos['period']}}" readonly hidden/>
+                                    <button class="btn btn-danger btn-social mx-2" name="addFoodstuff" type="submit"><i class="fa-solid fa-plus"></i></button>
                                 </td>
                             </form>
                         </tr>

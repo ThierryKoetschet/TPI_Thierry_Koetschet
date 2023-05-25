@@ -5,6 +5,11 @@
  * @author  Created by Thierry.KOETSCHET
  * @version 08.05.2023
  */
+$path='';
+if (isset($back))
+{
+    $path=$back;
+}
 
 ?>
 <!DOCTYPE html>
@@ -16,7 +21,7 @@
     <meta name="author" content="" />
     <title>InfoFit</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="logo_small_infofit.ico" />
+    <link rel="icon" type="image/x-icon" href="{{$path}}logo_small_infofit.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
@@ -24,13 +29,13 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="{{$path}}css/styles.css" rel="stylesheet" />
 </head>
 <body id="page-top" style="background-color: #212529">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="home"><img src="assets/img/logo_small_infofit.png" /></a>
+        <a class="navbar-brand" href="home"><img src="{{$path}}assets/img/logo_small_infofit.png" /></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars ms-1"></i>
@@ -73,7 +78,7 @@
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+<script src="{{$path}}js/scripts.js"></script>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <!-- * *                               SB Forms JS                               * *-->
 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->

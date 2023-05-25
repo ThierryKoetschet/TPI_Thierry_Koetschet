@@ -10,12 +10,14 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Input\Input;
 
 class FoodController extends Controller
 {
     public function showAlimentation() {
         $foodstuffList = [];
-        $list = Users_has_foodstuff::where('users_id', '=', Auth::id())->get();
+        $date = date("Y-m-d");
+        $list = Users_has_foodstuff::where('users_id', '=', Auth::id())->where('date', '=', $date)->get();
 
         foreach ($list as $item) {
             $foodstuffs = [
@@ -25,23 +27,54 @@ class FoodController extends Controller
                 'carbohydrates' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('carbohydrates_100g'),
                 'lipids' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('lipids_100g'),
                 'proteins' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('proteins_100g'),
-                'date' => $item['date']
+                'date' => $date,
+                'period' => $item['period']
             ];
 
             array_push($foodstuffList, $foodstuffs);
         }
 
-        return view('/alimentation', ['foodstuffList' => $foodstuffList]);
+        return view('/alimentation', ['foodstuffList' => $foodstuffList,'date'=>$date]);
+    }
+    public function showAlimentationSpecific($id) {
+        $foodstuffList = [];
+        $list = Users_has_foodstuff::where('users_id', '=', Auth::id())->where('date', '=', $id)->get();
+
+        foreach ($list as $item) {
+            $foodstuffs = [
+                'title' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('title'),
+                'quantity' => $item['quantity'] * 100,
+                'calories' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('kcal_100g'),
+                'carbohydrates' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('carbohydrates_100g'),
+                'lipids' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('lipids_100g'),
+                'proteins' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('proteins_100g'),
+                'date' => $item['date'],
+                'period' => $item['period']
+            ];
+
+            array_push($foodstuffList, $foodstuffs);
+        }
+
+        return view('alimentation', ['foodstuffList' => $foodstuffList,'date'=>$id,'back'=>'../']);
     }
 
     public function showAdd(Request $request) {
+        if ($request->has('breakfast')) {
+            $period = 'breakfast';
+        } elseif ($request->has('diner')) {
+            $period = 'diner';
+        } else {
+            $period = 'supper';
+        }
         $productSelection = [];
         $date = $request['date'];
+        $infos = ['date' => $date, 'period' => $period];
 
-        return view('/add', ['productSelection'=>$productSelection], ['date' => $date]);
+        return view('/add', ['productSelection'=>$productSelection], ['infos' => $infos]);
     }
 
     public function addFoodstuff(Request $request) {
+
         $formFields = $request->validate([
             'code' => 'required',
             'title' => 'required',
@@ -50,7 +83,8 @@ class FoodController extends Controller
             'lipids_100g' => 'required',
             'proteins_100g' => 'required',
             'quantity' => 'required|numeric|between:0,99.99',
-            'date' => 'required'
+            'date' => 'required',
+            'period' => 'required'
         ]);
 
         $foodstuff = new Foodstuff();
@@ -72,6 +106,7 @@ class FoodController extends Controller
         $userHasFoodstuff->foodstuffs_id = Foodstuff::where('code', '=', $foodstuff->code)->value('id');
         $userHasFoodstuff->date = $formFields['date'];
         $userHasFoodstuff->quantity = $formFields['quantity'];
+        $userHasFoodstuff->period = $formFields['period'];
 
         $userHasFoodstuff->save();
 
@@ -80,6 +115,9 @@ class FoodController extends Controller
 
     public function searchFoodstuff(Request $request) {
         $productName = $request['foodstuff'];
+        $date = $request['date'];
+        $period = $request['period'];
+        $infos = ['date' => $date, 'period' => $period];
         $api = file_get_contents('https://fr.openfoodfacts.org/categorie/'.$productName.'.json');
 
         if ($api) {
@@ -98,64 +136,61 @@ class FoodController extends Controller
 
             foreach ($productCode as $product) {
                 $api = file_get_contents('https://world.openfoodfacts.org/api/v2/product/'.$product->code);
-                $json = json_decode($api, true)['product'];
+                if ($api) {
+                    $json = json_decode($api, true)['product'];
 
-                $foodstuff = new Foodstuff();
+                    $foodstuff = new Foodstuff();
 
-                $foodstuff->code = $json['code'];
-                $foodstuff->title = $json['product_name_fr'];
-                if (isset($json['nutriments']['energy-kcal_100g'])) {
-                    $foodstuff->kcal_100g = $json['nutriments']['energy-kcal_100g'];
-                }
-                else {
-                    if (isset($json['nutriments']['energy'])) {
-                        $foodstuff->kcal_100g = $json['nutriments']['energy'];
+                    $foodstuff->code = $json['code'];
+                    $foodstuff->title = $json['product_name_fr'];
+                    if (isset($json['nutriments']['energy-kcal_100g'])) {
+                        $foodstuff->kcal_100g = $json['nutriments']['energy-kcal_100g'];
+                    } else {
+                        if (isset($json['nutriments']['energy'])) {
+                            $foodstuff->kcal_100g = $json['nutriments']['energy'];
+                        } else {
+                            $foodstuff->kcal_100g = 0;
+                        }
                     }
-                    else {
-                        $foodstuff->kcal_100g = 0;
+                    if (isset($json['nutriments']['carbohydrates_100g'])) {
+                        $foodstuff->carbohydrates_100g = $json['nutriments']['carbohydrates_100g'];
+                    } else {
+                        if (isset($json['nutriments']['carbohydrates'])) {
+                            $foodstuff->carbohydrates_100g = $json['nutriments']['carbohydrates'];
+                        } else {
+                            $foodstuff->carbohydrates_100g = 0;
+                        }
                     }
-                }
-                if (isset($json['nutriments']['carbohydrates_100g'])) {
-                    $foodstuff->carbohydrates_100g = $json['nutriments']['carbohydrates_100g'];
-                }
-                else {
-                    if (isset($json['nutriments']['carbohydrates'])) {
-                        $foodstuff->carbohydrates_100g = $json['nutriments']['carbohydrates'];
+                    if (isset($json['nutriments']['fat_100g'])) {
+                        $foodstuff->lipids_100g = $json['nutriments']['fat_100g'];
+                    } else {
+                        if (isset($json['nutriments']['fat'])) {
+                            $foodstuff->lipids_100g = $json['nutriments']['fat'];
+                        } else {
+                            $foodstuff->lipids_100g = 0;
+                        }
                     }
-                    else {
-                        $foodstuff->carbohydrates_100g = 0;
+                    if (isset($json['nutriments']['proteins_100g'])) {
+                        $foodstuff->proteins_100g = $json['nutriments']['proteins_100g'];
+                    } else {
+                        if (isset($json['nutriments']['proteins'])) {
+                            $foodstuff->proteins_100g = $json['nutriments']['proteins'];
+                        } else {
+                            $foodstuff->proteins_100g = 0;
+                        }
                     }
-                }
-                if (isset($json['nutriments']['fat_100g'])) {
-                    $foodstuff->lipids_100g = $json['nutriments']['fat_100g'];
-                }
-                else {
-                    if (isset($json['nutriments']['fat'])) {
-                        $foodstuff->lipids_100g = $json['nutriments']['fat'];
-                    }
-                    else {
-                        $foodstuff->lipids_100g = 0;
-                    }
-                }
-                if (isset($json['nutriments']['proteins_100g'])) {
-                    $foodstuff->proteins_100g = $json['nutriments']['proteins_100g'];
-                }
-                else {
-                    if (isset($json['nutriments']['proteins'])) {
-                        $foodstuff->proteins_100g = $json['nutriments']['proteins'];
-                    }
-                    else {
-                        $foodstuff->proteins_100g = 0;
-                    }
-                }
 
-                array_push($productSelection, $foodstuff);
+                    array_push($productSelection, $foodstuff);
+                }
+                else {
+                    return back()->withErrors(['message' => 'Le produit recherché n\'existe pas']);
+                }
             }
         }
         else {
-            return back()->withErrors(['message' => 'Le produit recherché n\'existe pas'])->onlyInput('email');
+            return back()->withErrors(['message' => 'Le produit recherché n\'existe pas']);
         }
 
-        return view('/add',['productSelection'=>$productSelection]);
+        return view('/add',['productSelection'=>$productSelection, 'infos'=>$infos]);
     }
 }

@@ -5,13 +5,12 @@
  * @author  Created by Thierry.KOETSCHET
  * @version 08.05.2023
  */
-if (!isset($date)){
-    $date = date("Y-m-d");
-}
+
 ?>
 @extends('layout')
 
 @section('content')
+
     <section class="page-section" id="contact">
         <div class="container">
             <div class="text-center">
@@ -24,7 +23,7 @@ if (!isset($date)){
                     <div class="col-md-6 ms-auto me-auto">
                         <div class="form-group">
                             <!-- Lastname input-->
-                            <input class="form-control" name="date" type="date" value="{{$date}}" onchange='window.location="/alimentation"'/>
+                            <input class="form-control" id="date" name="date" type="date" value="{{$date}}" oninput='changeDate()'/>
                         </div>
                     </div>
                 </div>
@@ -47,6 +46,7 @@ if (!isset($date)){
                         <th style="padding-bottom: 25px; padding-top: 25px">Petit déjeuner</th>
                     </tr>
                     @foreach($foodstuffList as $foodstuff)
+                        @if($foodstuff['period'] == 'breakfast')
                         <tr>
                             <td>{{$foodstuff['title']}} {{$foodstuff['quantity']}}g</td>
                             <td class="text-center">{{$foodstuff['calories']}}</td>
@@ -54,14 +54,16 @@ if (!isset($date)){
                             <td class="text-center">{{$foodstuff['lipids']}}</td>
                             <td class="text-center">{{$foodstuff['proteins']}}</td>
                         </tr>
+                        @endif
                     @endforeach
                     <tr>
-                        <td><button class="btn btn-danger mx-2" name="submitButton" type="submit">Ajouter un aliment</button></td>
+                        <td><button class="btn btn-danger mx-2" name="breakfast" type="submit">Ajouter un aliment</button></td>
                     </tr>
                     <tr>
                         <th style="padding-bottom: 25px; padding-top: 25px">Dîner</th>
                     </tr>
                     @foreach($foodstuffList as $foodstuff)
+                        @if($foodstuff['period'] == 'diner')
                         <tr>
                             <td>{{$foodstuff['title']}} {{$foodstuff['quantity']}}g</td>
                             <td class="text-center">{{$foodstuff['calories']}}</td>
@@ -69,14 +71,16 @@ if (!isset($date)){
                             <td class="text-center">{{$foodstuff['lipids']}}</td>
                             <td class="text-center">{{$foodstuff['proteins']}}</td>
                         </tr>
+                        @endif
                     @endforeach
                     <tr>
-                        <td><button class="btn btn-danger mx-2" name="submitButton" type="submit">Ajouter un aliment</button></td>
+                        <td><button class="btn btn-danger mx-2" name="diner" type="submit">Ajouter un aliment</button></td>
                     </tr>
                     <tr>
                         <th style="padding-bottom: 25px; padding-top: 25px">Souper</th>
                     </tr>
                     @foreach($foodstuffList as $foodstuff)
+                        @if($foodstuff['period'] == 'supper')
                         <tr>
                             <td>{{$foodstuff['title']}} {{$foodstuff['quantity']}}g</td>
                             <td class="text-center">{{$foodstuff['calories']}}</td>
@@ -84,9 +88,10 @@ if (!isset($date)){
                             <td class="text-center">{{$foodstuff['lipids']}}</td>
                             <td class="text-center">{{$foodstuff['proteins']}}</td>
                         </tr>
+                        @endif
                     @endforeach
                     <tr>
-                        <td><button class="btn btn-danger mx-2" name="submitButton" type="submit">Ajouter un aliment</button></td>
+                        <td><button class="btn btn-danger mx-2" name="supper" type="submit">Ajouter un aliment</button></td>
                     </tr>
                     <tr></tr>
                     <tr>
@@ -112,4 +117,9 @@ if (!isset($date)){
             </form>
         </div>
     </section>
+    <script>
+        function changeDate() {
+            location.href="/alimentation/"+document.getElementById('date').value
+        }
+    </script>
 @endsection

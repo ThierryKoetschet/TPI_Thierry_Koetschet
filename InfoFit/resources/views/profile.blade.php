@@ -20,16 +20,38 @@
                 <div class="row align-items-stretch mb-5">
                     <div class="col-md-12">
                         <div class="form-group">
+                            <!-- Gender input-->
+                            <input id="male" type="radio" placeholder="Homme" name="gender" value="Male"
+                                @if(auth()->user()->gender == 'Male')
+                                    checked
+                                @endif
+                            />
+                            <label class="form-label" style="color: white; margin-right: 20px" for="male">Homme</label>
+
+                            <input id="female" type="radio" placeholder="Femme" name="gender" value="Female"
+                                @if(auth()->user()->gender == 'Female')
+                                    checked
+                                @endif
+                            />
+                            <label class="form-label" style="color: white" for="female">Femme</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <!-- Lastname input-->
-                            <input class="form-control" name="lastname" type="text" value="{{auth()->user()->lastname}}" readonly/>
+                            <input class="form-control" name="lastname" type="text" value="{{auth()->user()->lastname}}" />
                         </div>
                         <div class="form-group">
                             <!-- Firstname input-->
-                            <input class="form-control" name="firstname" type="text" value="{{auth()->user()->firstname}}" readonly/>
+                            <input class="form-control" name="firstname" type="text" value="{{auth()->user()->firstname}}" />
+                        </div>
+                        <div class="form-group">
+                            <!-- Firstname input-->
+                            <input class="form-control" name="firstname" type="text" value="{{auth()->user()->email}}" />
                         </div>
                         <div class="form-group">
                             <!-- Birthdate input-->
-                            <input class="form-control" name="birthdate" type="date" value="{{auth()->user()->birthdate}}" readonly/>
+                            <input class="form-control" name="birthdate" type="date" value="{{auth()->user()->birthdate}}" />
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -41,7 +63,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <!-- Height input-->
-                            <input class="form-control" name="height" type="number" value="{{auth()->user()->height}}" readonly/>
+                            <input class="form-control" name="height" type="number" value="{{auth()->user()->height}}" />
                         </div>
                     </div>
                     <div class="col-md-3">
