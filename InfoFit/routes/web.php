@@ -1,4 +1,10 @@
 <?php
+/**
+ * @file    web.php
+ * @brief   This page contains all the routes linking the views of the application together
+ * @author  Created by Thierry.KOETSCHET
+ * @version 08.05.2023
+ */
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -58,3 +64,7 @@ Route::post('/searchFoodstuff', [FoodController::class, 'searchFoodstuff']);
 Route::get('/deleteUser', [UserController::class, 'deleteUser']);
 
 Route::get('deleteFoodstuff/{id}/{date}', [FoodController::class, 'deleteFoodstuff']);
+
+Route::post('/changePassword', [UserController::class, 'changePassword']);
+
+Route::get('newPassword', [UserController::class, 'newPassword']);

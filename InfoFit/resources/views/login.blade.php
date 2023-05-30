@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    login.blade.php
- * @brief   File description
+ * @brief   This view displays the form to log the user in
  * @author  Created by Thierry.KOETSCHET
  * @version 08.05.2023
  */
@@ -30,6 +30,7 @@
                             <input class="form-control" name="password" type="password" placeholder="Votre mot de passe *"/>
                             <span class="text-danger">@error('password') {{$message}} @enderror</span>
                         </div>
+                        <a href="/newPassword">Mot de passe oublié ?</a>
                     </div>
                 </div>
                 <!-- Submit Button-->

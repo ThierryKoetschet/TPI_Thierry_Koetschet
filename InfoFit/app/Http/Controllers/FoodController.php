@@ -1,4 +1,10 @@
 <?php
+/**
+ * @file    FoodController.php
+ * @brief   This file contains all the functions that impact the daily alimentation page and sends requests to the API
+ * @author  Created by Thierry.KOETSCHET
+ * @version 22.05.2023
+ */
 
 namespace App\Http\Controllers;
 
@@ -14,9 +20,11 @@ use Symfony\Component\Console\Input\Input;
 
 class FoodController extends Controller
 {
+    //displays all the foodstuffs inserted in the db
     public function showAlimentation() {
         $foodstuffList = [];
         $date = date("Y-m-d");
+        //gets all the foodstuffs based on the logged user and today's date
         $list = Users_has_foodstuff::where('users_id', '=', Auth::id())->where('date', '=', $date)->get();
 
         foreach ($list as $item) {
@@ -32,11 +40,14 @@ class FoodController extends Controller
                 'period' => $item['period']
             ];
 
+            //array displayed in the alimentation page
             array_push($foodstuffList, $foodstuffs);
         }
 
         return view('/alimentation', ['foodstuffList' => $foodstuffList,'date'=>$date]);
     }
+
+    //displays all the foodstuffs inserted in the db based on the selected date
     public function showAlimentationSpecific($id) {
         $foodstuffList = [];
         $list = Users_has_foodstuff::where('users_id', '=', Auth::id())->where('date', '=', $id)->get();
@@ -60,6 +71,7 @@ class FoodController extends Controller
         return view('alimentation', ['foodstuffList' => $foodstuffList,'date'=>$id,'back'=>'../']);
     }
 
+    //sorts the foodstuffs in the alimentation page based on their period attribute
     public function showAdd(Request $request) {
         if ($request->has('breakfast')) {
             $period = 'breakfast';
@@ -75,6 +87,7 @@ class FoodController extends Controller
         return view('/add', ['productSelection'=>$productSelection], ['infos' => $infos]);
     }
 
+    //adds the selected foodstuff to the db
     public function addFoodstuff(Request $request) {
 
         $formFields = $request->validate([
@@ -97,12 +110,13 @@ class FoodController extends Controller
         $foodstuff->lipids_100g = $formFields['lipids_100g'];
         $foodstuff->proteins_100g = $formFields['proteins_100g'];
 
+        //checks wether the foodstuff is the db or not and inserts it
         $checkDB = Foodstuff::where('code', '=', $foodstuff->code)->count();
-
         if ($checkDB == 0) {
             $foodstuff->save();
         }
 
+        //to link the selected foodstuff to the user in question
         $userHasFoodstuff = new Users_has_foodstuff();
         $userHasFoodstuff->users_id = Auth::id();
         $userHasFoodstuff->foodstuffs_id = Foodstuff::where('code', '=', $foodstuff->code)->value('id');
@@ -115,6 +129,7 @@ class FoodController extends Controller
         return redirect('/alimentation')->with('success', 'Aliment ajouté!');
     }
 
+    //sends the API requests to the online database and translates the data to an array to display in the add page
     public function searchFoodstuff(Request $request) {
         $productName = $request['foodstuff'];
         $date = $request['date'];
@@ -136,6 +151,7 @@ class FoodController extends Controller
                 array_push($productCode, $foodstuff);
             }
 
+            //this loop generates a 10 items array based on the keyword written in the input
             foreach ($productCode as $product) {
                 $api = file_get_contents('https://world.openfoodfacts.org/api/v2/product/'.$product->code);
                 if ($api) {
@@ -196,12 +212,15 @@ class FoodController extends Controller
         return view('/add',['productSelection'=>$productSelection, 'infos'=>$infos]);
     }
 
+    //deletes a foodstuff from the alimentation page
     public function deleteFoodstuff($id, $date) {
+        //delete from db
         Users_has_foodstuff::where('id', '=', $id)->delete();
 
         $foodstuffList = [];
         $list = Users_has_foodstuff::where('users_id', '=', Auth::id())->where('date', '=', $date)->get();
 
+        //regenerates the array to display in the alimentation page
         foreach ($list as $item) {
             $foodstuffs = [
                 'id' => $item['id'],

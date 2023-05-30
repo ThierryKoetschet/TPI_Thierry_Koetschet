@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    add.blade.php
- * @brief   File description
+ * @brief   This view displays the input where the user sends the API requests
  * @author  Created by Thierry.KOETSCHET
  * @version 22.05.2023
  */

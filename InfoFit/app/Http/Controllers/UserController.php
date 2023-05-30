@@ -1,4 +1,10 @@
 <?php
+/**
+ * @file    UserController.php
+ * @brief   This file contains all the functions that impact the users of the application
+ * @author  Created by Thierry.KOETSCHET
+ * @version 11.05.2023
+ */
 
 namespace App\Http\Controllers;
 
@@ -11,11 +17,13 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    //to show the register page
     public function register()
     {
         return view('register');
     }
 
+    //stores the new users informations in the database
     public function store(Request $request)
     {
         $formFields = $request->validate([
@@ -71,6 +79,7 @@ class UserController extends Controller
         return view('login');
     }
 
+    //authenticates the user with his credentials
     public function authenticate(Request $request)
     {
         $formFields = $request->validate([
@@ -89,6 +98,7 @@ class UserController extends Controller
         return back()->withErrors(['email' => 'Les identifiants sont invalides'])->onlyInput('email');
     }
 
+    //updates the different user informations in the database like the weight, the email, the name, etc.
     public function updateUser(Request $request)
     {
         $oldEmail = Auth::user()->email;
@@ -139,6 +149,7 @@ class UserController extends Controller
 
         $oldWeight = Weight::where('users_id', '=', Auth::id())->orderby('id', 'desc')->first();
 
+        //to avoid inserting duplicate data in the database
         if ($formFields['weight'] == $oldWeight['value'] && $oldWeight['date'] == date("Y-m-d")) {
             return back();
         }
@@ -171,5 +182,41 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/')->with('message', 'Vous avez supprimé votre compte');
+    }
+
+    public function newPassword() {
+        return view('/changePassword');
+    }
+
+    //changes the users password in the database via the link "mot de passe oublié ?"
+    public function changePassword(Request $request) {
+        $formFields = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:6'
+        ]);
+
+        //select the user with the email input
+        $user = User::where('email', '=', $formFields['email'])->get();
+
+        if ($user) {
+            //Hash Password
+            $formFields['password'] = bcrypt($formFields['password']);
+
+            $user->password = $formFields['password'];
+
+            //update the password in the DB
+            User::where('email', '=', $formFields['email'])->update(
+                [
+                    'password' => $formFields['password'],
+                ]
+            );
+
+            Auth::login(User::where('email', '=', $formFields['email'])->first());
+
+            return redirect('/profile')->with('message', 'Vous êtes maintenant connecté !');
+        }
+        else {
+            return back()->with('message', 'Email invalide !');
+        }
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    home.blade.php
- * @brief   File description
+ * @brief   This view displays the home page
  * @author  Created by Thierry.KOETSCHET
  * @version 08.05.2023
  */

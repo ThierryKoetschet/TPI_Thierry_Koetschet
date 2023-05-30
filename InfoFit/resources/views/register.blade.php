@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    register.blade.php
- * @brief   File description
+ * @brief   This view displays the register form to create a new user account
  * @author  Created by Thierry.KOETSCHET
  * @version 08.05.2023
  */

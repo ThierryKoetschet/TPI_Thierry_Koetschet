@@ -1,4 +1,10 @@
 <?php
+/**
+ * @file    User.php
+ * @brief   This file is the model linked to the users table of the database
+ * @author  Created by Thierry.KOETSCHET
+ * @version 11.05.2023
+ */
 
 namespace App\Models;
 

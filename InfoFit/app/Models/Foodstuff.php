@@ -1,4 +1,10 @@
 <?php
+/**
+ * @file    Foodstuff.php
+ * @brief   This file is the model linked to the foodstuffs table of the database
+ * @author  Created by Thierry.KOETSCHET
+ * @version 22.05.2023
+ */
 
 namespace App\Models;
 

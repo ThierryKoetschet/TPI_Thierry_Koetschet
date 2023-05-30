@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    layout.blade.php
- * @brief   File description
+ * @brief   This view is the layout used in all the other views
  * @author  Created by Thierry.KOETSCHET
  * @version 08.05.2023
  */

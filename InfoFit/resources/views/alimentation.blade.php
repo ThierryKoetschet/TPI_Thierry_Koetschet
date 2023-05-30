@@ -1,7 +1,7 @@
 <?php
 /**
  * @file    alimentation.blade.php
- * @brief   File description
+ * @brief   This view displays the foodstuffs saved by the user in the database
  * @author  Created by Thierry.KOETSCHET
  * @version 08.05.2023
  */
