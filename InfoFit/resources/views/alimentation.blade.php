@@ -48,11 +48,11 @@
                     @foreach($foodstuffList as $foodstuff)
                         @if($foodstuff['period'] == 'breakfast')
                         <tr>
-                            <td>{{$foodstuff['title']}} {{$foodstuff['quantity']}}g</td>
-                            <td class="text-center">{{$foodstuff['calories']}}</td>
-                            <td class="text-center">{{$foodstuff['carbohydrates']}}</td>
-                            <td class="text-center">{{$foodstuff['lipids']}}</td>
-                            <td class="text-center">{{$foodstuff['proteins']}}</td>
+                            <td>{{$foodstuff['title']}} {{$foodstuff['quantity']*100}}g</td>
+                            <td class="text-center">{{$foodstuff['calories']*$foodstuff['quantity']}}</td>
+                            <td class="text-center">{{$foodstuff['carbohydrates']*$foodstuff['quantity']}}</td>
+                            <td class="text-center">{{$foodstuff['lipids']*$foodstuff['quantity']}}</td>
+                            <td class="text-center">{{$foodstuff['proteins']*$foodstuff['quantity']}}</td>
                             <td>
                                 <a href="/deleteFoodstuff/{{$foodstuff['id']}}/{{$date}}"><i class="fa-solid fa-minus btn btn-danger"></i></a>
                             </td>
@@ -68,11 +68,11 @@
                     @foreach($foodstuffList as $foodstuff)
                         @if($foodstuff['period'] == 'diner')
                         <tr>
-                            <td>{{$foodstuff['title']}} {{$foodstuff['quantity']}}g</td>
-                            <td class="text-center">{{$foodstuff['calories']}}</td>
-                            <td class="text-center">{{$foodstuff['carbohydrates']}}</td>
-                            <td class="text-center">{{$foodstuff['lipids']}}</td>
-                            <td class="text-center">{{$foodstuff['proteins']}}</td>
+                            <td>{{$foodstuff['title']}} {{$foodstuff['quantity']*100}}g</td>
+                            <td class="text-center">{{$foodstuff['calories']*$foodstuff['quantity']}}</td>
+                            <td class="text-center">{{$foodstuff['carbohydrates']*$foodstuff['quantity']}}</td>
+                            <td class="text-center">{{$foodstuff['lipids']*$foodstuff['quantity']}}</td>
+                            <td class="text-center">{{$foodstuff['proteins']*$foodstuff['quantity']}}</td>
                             <td>
                                 <a href="/deleteFoodstuff/{{$foodstuff['id']}}/{{$date}}"><i class="fa-solid fa-minus btn btn-danger"></i></a>
                             </td>
@@ -88,11 +88,11 @@
                     @foreach($foodstuffList as $foodstuff)
                         @if($foodstuff['period'] == 'supper')
                         <tr>
-                            <td>{{$foodstuff['title']}} {{$foodstuff['quantity']}}g</td>
-                            <td class="text-center">{{$foodstuff['calories']}}</td>
-                            <td class="text-center">{{$foodstuff['carbohydrates']}}</td>
-                            <td class="text-center">{{$foodstuff['lipids']}}</td>
-                            <td class="text-center">{{$foodstuff['proteins']}}</td>
+                            <td>{{$foodstuff['title']}} {{$foodstuff['quantity']*100}}g</td>
+                            <td class="text-center">{{$foodstuff['calories']*$foodstuff['quantity']}}</td>
+                            <td class="text-center">{{$foodstuff['carbohydrates']*$foodstuff['quantity']}}</td>
+                            <td class="text-center">{{$foodstuff['lipids']*$foodstuff['quantity']}}</td>
+                            <td class="text-center">{{$foodstuff['proteins']*$foodstuff['quantity']}}</td>
                             <td>
                                 <a href="/deleteFoodstuff/{{$foodstuff['id']}}/{{$date}}"><i class="fa-solid fa-minus btn btn-danger"></i></a>
                             </td>
@@ -110,10 +110,10 @@
                         $lipidsSum = 0;
                         $proteinsSum = 0;
                         foreach($foodstuffList as $foodstuff) {
-                            $caloriesSum += $foodstuff['calories'];
-                            $carbSum += $foodstuff['carbohydrates'];
-                            $lipidsSum += $foodstuff['lipids'];
-                            $proteinsSum += $foodstuff['proteins'];
+                            $caloriesSum += $foodstuff['calories']*$foodstuff['quantity'];
+                            $carbSum += $foodstuff['carbohydrates']*$foodstuff['quantity'];
+                            $lipidsSum += $foodstuff['lipids']*$foodstuff['quantity'];
+                            $proteinsSum += $foodstuff['proteins']*$foodstuff['quantity'];
                         }
                         ?>
                         <th style="padding-bottom: 25px; padding-top: 25px">Total</th>

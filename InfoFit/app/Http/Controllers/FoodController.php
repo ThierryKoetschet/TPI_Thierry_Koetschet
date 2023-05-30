@@ -31,7 +31,7 @@ class FoodController extends Controller
             $foodstuffs = [
                 'id' => $item['id'],
                 'title' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('title'),
-                'quantity' => $item['quantity'] * 100,
+                'quantity' => $item['quantity'],
                 'calories' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('kcal_100g'),
                 'carbohydrates' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('carbohydrates_100g'),
                 'lipids' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('lipids_100g'),
@@ -56,7 +56,7 @@ class FoodController extends Controller
             $foodstuffs = [
                 'id' => $item['id'],
                 'title' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('title'),
-                'quantity' => $item['quantity'] * 100,
+                'quantity' => $item['quantity'],
                 'calories' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('kcal_100g'),
                 'carbohydrates' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('carbohydrates_100g'),
                 'lipids' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('lipids_100g'),
@@ -225,7 +225,7 @@ class FoodController extends Controller
             $foodstuffs = [
                 'id' => $item['id'],
                 'title' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('title'),
-                'quantity' => $item['quantity'] * 100,
+                'quantity' => $item['quantity'],
                 'calories' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('kcal_100g'),
                 'carbohydrates' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('carbohydrates_100g'),
                 'lipids' => Foodstuff::where('id', '=', $item['foodstuffs_id'])->value('lipids_100g'),
