@@ -14,7 +14,7 @@
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Login</h2>
-                <h3 class="section-subheading text-muted">Veuillez vous enregistrer pour accéder à vos données.</h3>
+                <h3 class="section-subheading text-white">Veuillez vous enregistrer pour accéder à vos données.</h3>
             </div>
             <form id="contactForm" method="post" action="{{'/authenticate'}}">
                 @csrf

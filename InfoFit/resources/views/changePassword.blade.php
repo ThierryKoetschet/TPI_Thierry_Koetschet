@@ -14,7 +14,7 @@
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Changement de mot de passe</h2>
-                <h3 class="section-subheading text-muted">Veuillez saisir un nouveau mot de passe.</h3>
+                <h3 class="section-subheading text-white">Veuillez saisir un nouveau mot de passe.</h3>
             </div>
             <form id="contactForm" method="post" action="{{'/changePassword'}}">
                 @csrf

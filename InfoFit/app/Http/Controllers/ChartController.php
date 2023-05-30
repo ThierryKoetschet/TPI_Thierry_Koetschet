@@ -14,7 +14,7 @@ use App\Models\Weight;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class ChartController extends Controller
+class  ChartController extends Controller
 {
     //creates the array that is displayed in the chart
     public function lineChart() {
